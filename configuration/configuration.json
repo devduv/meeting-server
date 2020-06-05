@@ -1,0 +1,13 @@
+{
+	"version": "1.0.0",
+	"twilio": {
+		"account": {
+			"account_sid": "",
+			"auth_token": ""
+		},
+		"keys": {
+			"api_key": "",
+			"api_secret": ""
+		}
+	}
+}

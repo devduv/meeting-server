@@ -1,0 +1,44 @@
+<div class="text-center container">
+    <div style="display: inline-block;" class="mt-1">
+    </div>
+    <div class="m-4">
+        <div class="section-participants">
+            <div class="secction-local-participant"
+            id="participanteLocalID">
+                <mat-spinner class="mr-1" *ngIf="loading" color="assets" mode="indeterminate" diameter="40">
+                </mat-spinner>
+                <label *ngIf="!videoEnabled">{{meeting.localParticipant? meeting.identity : 'Conectando...'}}</label>
+                <label class="labelLocal" *ngIf="videoEnabled && !loading">
+                    {{meeting.localParticipant? meeting.identity : 'Conectando...'}}
+                </label>
+                <label *ngIf="microphoneEnabled && !loading && !videoEnabled" class="labelHablando">hablando...</label>
+            </div>
+            <div *ngFor="let participant of participantsList"
+            id="{{participant?.sid}}"   
+                class="secction-extern-participant">
+                <label *ngIf="!videoParticipant(participant)">{{participant? participant.identity : 'Conectando...'}}</label>
+                <label class="labelLocal" *ngIf="videoParticipant(participant) && !loading">
+                    {{participant? participant.identity : 'Conectando...'}}
+                </label>
+                <label *ngIf="microphoneParticipant(participant) && !loading && !videoParticipant(participant)" 
+                class="labelHablando">hablando...</label>
+            </div>
+        </div>
+        <div class="mt-3" *ngIf="!loading">
+            <button #tooltip="matTooltip" (click)="microphone(); tooltip.toggle();" [matTooltip]="microphoneMessage"
+                mat-fab [color]="microphoneEnabled ? 'primary' : 'accent'" class="ml-3 mr-3">
+                <mat-icon [inline]="true">{{this.microphoneEnabled ? 'mic' : 'mic_off'}}</mat-icon>
+            </button>
+            <button (click)="videocam()" [matTooltip]="videocamMessage" mat-fab 
+            [color]="videoEnabled ? 'primary' : 'accent'" class="ml-3 mr-3">
+                <mat-icon [inline]="true">{{this.videoEnabled ? 'videocam' : 'videocam_off'}}</mat-icon>
+            </button>
+            <!-- <button mat-fab color="primary" class="ml-3 mr-3">
+                <mat-icon [inline]="true">screen_share</mat-icon>
+            </button> -->
+            <button (click)="exitMeeting()" matTooltip="Salir de la reunión" mat-fab color="warn" class="ml-3 mr-3">
+                <mat-icon [inline]="true">local_phone</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

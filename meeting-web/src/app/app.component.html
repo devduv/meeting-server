@@ -1,0 +1,65 @@
+<div class="example-container">
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #snav [opened]="!meeting.meetingFinished" [mode]="mobile.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobile.matches" style="background: rgb(248, 248, 248); width: 260px !important;">
+      <div>
+        <div class="m-3 text-center">
+          <img src="assets/profile-user.png" width="100">
+          <br />
+          <h4>{{meeting.identity}}</h4>
+
+          <div>
+            <div class="center-content">
+              <mat-spinner *ngIf="!meeting.connected" color="warn" mode="indeterminate" diameter="25">
+              </mat-spinner>
+              <mat-icon *ngIf="meeting.connected" style="font-size: 20px; color:rgb(1, 161, 22) ">check_circle
+              </mat-icon>
+              <span style="font-size: 14px;">{{meeting.connected ? 'Conectado' : 'Conectando...'}}</span>
+            </div>
+            <!-- <div class="center-content">
+              <mat-spinner *ngIf="meeting.waiting" color="warn" mode="indeterminate" diameter="25">
+              </mat-spinner>
+              <mat-icon *ngIf="!meeting.waiting" style="font-size: 20px; color:rgb(1, 161, 22) ">check_circle</mat-icon>
+              <span style="font-size: 14px;">{{meeting.waiting? 'Esperando cliente...' : 'Cliente conectado'}}</span>
+            </div> -->
+          </div>
+          <hr>
+          <div class="text-center">
+            <span style="font-size: 13px;">{{date | date:'fullDate':'pe'}}</span>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="background: rgb(248, 248, 248);">
+      <mat-toolbar color="primary" style=" height: 50px !important; min-height: 50px !important;">
+        <mat-toolbar-row>
+          <button *ngIf="!meeting.meetingFinished" mat-button (click)="snav.toggle()">
+           <mat-icon>menu</mat-icon>
+        </button>
+          <span style="font-size: 15px;">
+            {{meeting.roomName}}
+          </span>
+          <span class="flex-nav"></span>
+          <div *ngIf="!meeting.meetingFinished">
+            <button mat-stroked-button class="tooltip-button" 
+            style="font-size: 14.5px;">
+              {{meeting.localParticipant? meeting.identity: 'Cargando...'}}</button>
+            <button class="ml-2" mat-mini-fab [matMenuTriggerFor]="menu" color="warn">
+              <mat-icon>account_circle</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="editName()">
+                <mat-icon>edit</mat-icon>Cambiar nombre
+              </button>
+              <button mat-menu-item (click)="exitMeeting()">
+                <mat-icon>call_end</mat-icon>Salir de la reunión
+              </button>
+            </mat-menu>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

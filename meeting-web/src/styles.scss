@@ -1,0 +1,57 @@
+/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+ */
+
+.center-content {
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #ee3818 !important;
+}
+
+.mat-fab.mat-primary {
+    background: #096ac6;
+    color: #fff;
+    font-size: 28px;
+  }
+
+  .mat-fab.mat-accent {
+    background: #000000;
+    color: rgb(255, 255, 255);
+    font-size: 28px;
+  }
+
+  .mat-fab.mat-warn {
+    color: #fff;
+    font-size: 28px;
+  }
+
+  .mat-toolbar-row,
+  .mat-toolbar-single-row {
+    height: 48px !important;
+  }
+
+  .mat-toolbar.mat-primary {
+    background: #0760b4;
+    color: #fff;
+  }
+
+  .flex-nav {
+    flex: 1 1 auto;
+  }
+
+  .mat-raised-button {
+    font-size: 12px !important;
+    line-height: 28px !important;
+    padding: 1 10px !important;
+    border-radius: 2px !important;
+  }
+
+  .mat-button {
+    padding: 1 5px !important;
+    
+    min-width: 10px !important;
+  }
