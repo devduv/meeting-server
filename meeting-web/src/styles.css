@@ -1,13 +1,16 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-
+.meeting-sidenav-container {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  flex: 1;
+  margin-top: 50px !important;
+  position:fixed !important;
+  width:100% !important;
+  z-index:-1 !important;
+}
   .example-is-mobile .example-toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -31,9 +34,7 @@
 
 .section-participants {
   border-color: rgb(151, 151, 151);
-
-  height: 480px; width: 100%;
-  padding: 5px;
+  height: 100%; width: 100%;
   display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +64,7 @@
 
 .labelLocal {
     position: absolute;
-    top: 110px;
+    top: 10px;
     padding-left: 6px;
     padding-right: 7px;
     border-radius: 2px;
@@ -75,7 +76,7 @@
 
 .labelHablando {
   position: absolute;
-    margin-top: 20px;
+    margin-top: 25px;
     font-size: 12px;
 }
 

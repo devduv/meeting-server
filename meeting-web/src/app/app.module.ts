@@ -3,25 +3,27 @@ import { APP_INITIALIZER, NgModule, LOCALE_ID } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { RoomComponent } from './room/room.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { registerLocaleData } from '@angular/common';
 import localePe from '@angular/common/locales/es-PE';
 import { Meeting } from './lib/Meeting';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
-import { LobbyComponent } from './lobby/lobby.component';
 import { DontAccessComponent } from './dont-access/dont-access.component';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { EditNameComponent } from './edit-name/edit-name.component';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { LobbyComponent } from './pages/lobby/lobby.component';
+import { StartMeetingComponent } from './pages/start-meeting/start-meeting.component';
+import { AccessTokenComponent } from './pages/access-token/access-token.component';
+import { MeetingComponent } from './pages/meeting/meeting.component';
 registerLocaleData(localePe, 'es');
 
 export function initMeeting(meeting: Meeting) {
@@ -31,10 +33,12 @@ export function initMeeting(meeting: Meeting) {
 @NgModule({
   declarations: [
     AppComponent,
-    RoomComponent,
+    MeetingComponent,
     LobbyComponent,
     DontAccessComponent,
-    EditNameComponent
+    EditNameComponent,
+    StartMeetingComponent,
+    AccessTokenComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,7 @@ export function initMeeting(meeting: Meeting) {
     MatDialogModule,
     FormsModule,
     MatTooltipModule,
+    HttpClientModule
   ],
   entryComponents: [EditNameComponent],
   providers: [

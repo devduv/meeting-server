@@ -1,57 +1,69 @@
-/* @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
- */
-
 .center-content {
-    height: 100% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.mat-progress-spinner circle, .mat-spinner circle {
-    stroke: #ee3818 !important;
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #ee3818 !important;
 }
 
 .mat-fab.mat-primary {
-    background: #096ac6;
-    color: #fff;
-    font-size: 28px;
-  }
+  background: #096ac6;
+  color: #fff;
+  font-size: 28px;
+}
 
-  .mat-fab.mat-accent {
-    background: #000000;
-    color: rgb(255, 255, 255);
-    font-size: 28px;
-  }
+.mat-fab.mat-accent {
+  background: #000000;
+  color: rgb(255, 255, 255);
+  font-size: 28px;
+}
 
-  .mat-fab.mat-warn {
-    color: #fff;
-    font-size: 28px;
-  }
+.mat-fab.mat-warn {
+  color: #fff;
+  font-size: 28px;
+}
 
-  .mat-toolbar-row,
-  .mat-toolbar-single-row {
-    height: 48px !important;
-  }
+.flex-nav {
+  flex: 1 1 auto;
+}
 
-  .mat-toolbar.mat-primary {
-    background: #0760b4;
-    color: #fff;
-  }
+.mat-raised-button {
+  font-size: 20px !important;
+  border-radius: 2px !important;
+}
 
-  .flex-nav {
-    flex: 1 1 auto;
-  }
+.mat-button {
+  padding: 1 5px !important;
 
-  .mat-raised-button {
-    font-size: 12px !important;
-    line-height: 28px !important;
-    padding: 1 10px !important;
-    border-radius: 2px !important;
-  }
+  min-width: 10px !important;
+}
 
-  .mat-button {
-    padding: 1 5px !important;
-    
-    min-width: 10px !important;
-  }
+.meeting-toolbar {
+  height: 50px !important;
+  min-height: 50px !important;
+}
+
+.mat-toolbar.mat-primary {
+  background: #064a8a;
+  color: #fff;
+  position: fixed !important;
+  z-index: 2;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: 48px !important;
+}
+
+
+.mat-icon.mat-primary {
+  color: #064a8a !important;
+}
+
+.mat-raised-button.mat-primary {
+  background: #424242 !important;
+}

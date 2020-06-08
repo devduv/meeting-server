@@ -2,12 +2,15 @@
 	"version": "1.0.0",
 	"twilio": {
 		"account": {
-			"account_sid": "",
-			"auth_token": ""
+			"account_sid": "AC5a7e8c311659412b23dc6139e46aacfe",
+			"auth_token": "10563e9508d689b5c948cd86ef6cbf21"
 		},
 		"keys": {
-			"api_key": "",
-			"api_secret": ""
+			"api_key": "SKcd4773ea6eb7b79f8a94a99bfbdb0d8d",
+			"api_secret": "XdVpMKgKwMxs0xq0hiHmoiPqAGxs6yGA"
 		}
+	},
+	"services": {
+		"event_server_uri": "http://52.13.69.113:9000/"
 	}
 }

@@ -1,0 +1,49 @@
+<div class="center-content">
+    <div class="text-center" *ngIf="verifyToken">
+        <mat-icon [inline]="true" style="font-size: 50px;" color="primary">vpn_key</mat-icon>
+        <br>
+        <h1><b>Verificando clave de acceso</b></h1>
+        <mat-spinner *ngIf="loading" color="warn" mode="indeterminate" diameter="50" style="display: inline-block;">
+        </mat-spinner>
+    </div>
+    <div  [style.visibility]="!verifyToken ? 'visible' : 'hidden'" class="text-center" 
+    style="position: absolute; z-index: 0; width: 100%; height: 100%;">
+        <div class="section-participants">
+            <div class="secction-local-participant" id="participanteLocalID">
+                <mat-spinner class="mr-1" *ngIf="loading" color="assets" mode="indeterminate" diameter="40">
+                </mat-spinner>
+                <label style="position: absolute;" *ngIf="!videoEnabled">{{meeting.localParticipant? meeting.identity : 'Conectando...'}}</label>
+                <label class="labelLocal" *ngIf="videoEnabled && !loading">
+                    {{meeting.localParticipant? meeting.identity : 'Conectando...'}}
+                </label>
+                <label *ngIf="microphoneEnabled && !loading && !videoEnabled" class="labelHablando">
+                    hablando...
+                </label>
+            </div>
+            <div *ngFor="let participant of participantsList" id="{{participant?.sid}}"
+                class="secction-extern-participant">
+                <label style="position: absolute;"
+                    *ngIf="!videoParticipant(participant)">{{participant? participant.identity : 'Conectando...'}}</label>
+                <label class="labelLocal" *ngIf="videoParticipant(participant) && !loading">
+                    {{participant? participant.identity : 'Conectando...'}}
+                </label>
+                <label *ngIf="microphoneParticipant(participant) && !loading && !videoParticipant(participant)"
+                    class="labelHablando"> hablando...</label>
+            </div>
+            <div *ngIf="!loading" style="position: absolute; bottom: 20px;">
+                <button #tooltip="matTooltip" (click)="microphone(); tooltip.toggle();" [matTooltip]="microphoneMessage"
+                    mat-fab [color]="microphoneEnabled ? 'primary' : 'warn'" class="ml-3 mr-3">
+                    <mat-icon [inline]="true">{{this.microphoneEnabled ? 'mic' : 'mic_off'}}</mat-icon>
+                </button>
+                <button (click)="videocam()" [matTooltip]="videocamMessage" mat-fab
+                    [color]="videoEnabled ? 'primary' : 'warn'" class="ml-3 mr-3">
+                    <mat-icon [inline]="true">{{this.videoEnabled ? 'videocam' : 'videocam_off'}}</mat-icon>
+                </button>
+                <button (click)="exitMeeting()" matTooltip="Salir de la reunión" mat-fab color="warn" class="ml-3 mr-3">
+                    <mat-icon [inline]="true">local_phone</mat-icon>
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</div>

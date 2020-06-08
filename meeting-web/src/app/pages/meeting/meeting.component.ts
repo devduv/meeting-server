@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Meeting } from '../lib/Meeting';
+import { Meeting } from 'src/app/lib/Meeting';
 declare const Twilio: any;
 @Component({
   selector: 'app-room',
-  templateUrl: './room.component.html'
+  templateUrl: './meeting.component.html'
 })
-export class RoomComponent implements OnInit {
+export class MeetingComponent implements OnInit {
 
+  public attatchs: any[];
+  public verifyToken: boolean;
   private token: string;
   public video: any;
   public roomName: any;
@@ -29,9 +31,11 @@ export class RoomComponent implements OnInit {
     public meeting: Meeting,
     private router: Router
   ) {
+    this.attatchs = [];
     this.video = Twilio.Video;
     this.roomName = 'Cargando sala de reunión...';
     this.loading = true;
+    this.verifyToken = true;
     this.participantsList = [];
     this.microphoneEnabled = true;
     this.microphoneMessage = 'Desactivar micrófono';
@@ -41,15 +45,14 @@ export class RoomComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.token = params.token;
-    });
+    this.token = sessionStorage.getItem('token');
     this.connectRoom();
   }
 
 
   public connectRoom() {
-    this.video.connect(this.token, { video: this.videoEnabled, audio: true, }).then(room => {
+    this.video.connect(this.token, { video: this.videoEnabled, audio: this.microphoneEnabled, })
+    .then(room => {
       // Local conectado
       this.participantLocalConnected(room);
 
@@ -67,14 +70,22 @@ export class RoomComponent implements OnInit {
       } else {
         this.meeting.connected = false;
         this.meeting.meetingFinished = true;
-        sessionStorage.setItem('no-access', error.toString().split('TwilioError: ')[1]);
-        this.router.navigate(['no-access']);
+        console.log('asas', this.token);
+        if (this.token  === null) {
+          this.router.navigate(['lobby']);
+        } else {
+          sessionStorage.setItem('no-access', error.toString().split('TwilioError: ')[1]);
+          this.router.navigate(['no-access']);
+        }
+       
       }
 
     });
   }
 
   private participantLocalConnected(room: any) {
+    sessionStorage.setItem('meetingFinished', 'false');
+    this.verifyToken = false;
     this.roomName = room.name;
     this.room = room;
     this.meeting.roomName = room.name;
@@ -86,23 +97,23 @@ export class RoomComponent implements OnInit {
     this.meeting.identity = this.meeting.localParticipant.identity;
     sessionStorage.setItem('identity', this.meeting.localParticipant.identity);
 
-    this.meeting.localParticipant.on('trackSubscribed', track => trackSubscribed(this.meeting.localParticipant.sid, track));
+    this.meeting.localParticipant.on('trackSubscribed', track => this.trackSubscribed(this.meeting.localParticipant.sid, track));
     this.meeting.localParticipant.on('trackUnsubscribed', trackUnsubscribed);
-
     this.meeting.localParticipant.tracks.forEach(publication => {
-      trackSubscribed(this.meeting.localParticipant.sid, publication.track);
+      this.trackSubscribed(this.meeting.localParticipant.sid, publication.track);
     });
-
-    function trackSubscribed(id: string, track: any) {
-      const div = document.getElementById('participanteLocalID');
-      const video = track.attach();
-      video.style.transform = 'scale(-1, 1)';
-      div.appendChild(video);
-    }
 
     function trackUnsubscribed(track: any) {
       track.detach().forEach(element => element.remove());
     }
+  }
+
+  private trackSubscribed(id: string, track: any) {
+    const div = document.getElementById('participanteLocalID');
+      const video = track.attach();
+      video.style.transform = 'scale(-1, 1)';
+      //his.attatch.push();
+      div.appendChild(video);
   }
 
   private participantExternConnected(room: any) {
@@ -170,6 +181,7 @@ export class RoomComponent implements OnInit {
 
   public exitMeeting() {
     this.localParticipant.tracks.forEach(publication => {
+      sessionStorage.setItem('meetingFinished', 'true');
       publication.track.stop();
       const attachedElements = publication.track.detach();
       attachedElements.forEach(element => element.remove());
@@ -185,10 +197,11 @@ export class RoomComponent implements OnInit {
 
   public videoParticipant(participant: any) {
     return participant.videoTracks.entries().next().value !== undefined ?
-    participant.videoTracks.entries().next().value[1].isTrackEnabled : false;
+      participant.videoTracks.entries().next().value[1].isTrackEnabled : false;
   }
 
   public microphoneParticipant(participant: any) {
-    return participant.audioTracks.entries().next().value[1].isTrackEnabled;
+    return participant.audioTracks.entries().next().value !== undefined ?
+      participant.audioTracks.entries().next().value[1].isTrackEnabled : false;
   }
 }
